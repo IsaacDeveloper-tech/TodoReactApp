@@ -1,6 +1,12 @@
 import './App.css';
 import React from 'react';
 
+//components
+import { TodoCounter } from './TodoCounter/TodoCounter';
+import { TodoSearch } from './TodoSearch/TodoSearch';
+import { TodoList } from './TodoList/TodoList';
+import { TodoButton } from './TodoButton/TodoButton';
+
 const list = [
   {id: 0, text: "do something", completed: false},
   {id: 1, text: "speak with someone", completed: true},
@@ -12,16 +18,14 @@ function App() {
   return (
     <React.Fragment>
 
-      <h2>You have 2 of 4 completed</h2>
+      <TodoCounter />
       
-      <input placeholder='Search some "todo"'></input>
+      <TodoSearch />
 
-      <ul>
-        {list.map(todo => {return <li>{todo.text}</li>})}
-      </ul>
+      <TodoList todos = { list } />
 
-      <button>Create Todo</button>
-      
+      <TodoButton />
+
     </React.Fragment>
   );
 }
