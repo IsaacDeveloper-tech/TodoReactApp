@@ -16,17 +16,19 @@ const list = [
 
 function App() {
   return (
-    <React.Fragment>
-
+    <div className='app'>
+      
       <TodoCounter />
       
       <TodoSearch />
 
       <TodoList todos = { list } />
 
-      <TodoButton />
+      <div className='button-box'>
+        <TodoButton />
+      </div>
 
-    </React.Fragment>
+    </div>
   );
 }
 
