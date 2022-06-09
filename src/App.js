@@ -15,14 +15,47 @@ const list = [
 ]
 
 function App() {
+
+  //States
+  const [todos, SetTodos] = React.useState(list);
+  const [searchValue, SetSearchValue] = React.useState("");
+
+  //values
+  let completedTodos = todos.filter(todo => todo.completed).length;
+  let totalTodos = todos.length;
+  
+  //filter todos
+  let searchedTodos = [];
+
+  if(searchValue.length >= 0){
+    searchedTodos = todos.filter(todo => {
+      let searchLower = searchValue.toLowerCase();
+      let todoLower = todo.text.toLowerCase();
+
+      return todoLower.includes(searchLower);
+    });
+  } 
+  else{
+    searchedTodos = todos;
+  }
+
   return (
     <div className='app'>
       
-      <TodoCounter />
+      <TodoCounter
+        completedTodos = { completedTodos }
+        totalTodos = { totalTodos }
+      />
       
-      <TodoSearch />
+      <TodoSearch 
+        searchValue={ searchValue }
+        SetSearchValue = { SetSearchValue } 
+      />
 
-      <TodoList todos = { list } />
+      <TodoList 
+        todos = { searchedTodos }
+        SetTodos = { SetTodos } 
+      />
 
       <div className='button-box'>
         <TodoButton />
