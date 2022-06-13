@@ -8,18 +8,24 @@ import "./TodoList.css";
 function TodoList({ todos, SetTodos }){
 
     //functions
+    const SafeTodos = (todos) => {
+        let tosafe = JSON.stringify(todos);
+        localStorage.setItem("TODOS_V1", tosafe);
+        SetTodos(todos); 
+    }
+
     const CompleteTodo = (id) => {
         let todoIndex = todos.findIndex(todo => todo.id === id);
         let newTodos = [...todos];
         newTodos[todoIndex].completed = true;
-        SetTodos(newTodos);
+        SafeTodos(newTodos);
     }
 
     const DeleteTodo = (id) => {
         let todoIndex = todos.findIndex(todo => todo.id === id);
         let newTodos = [...todos];
         newTodos.splice(todoIndex, 1);
-        SetTodos(newTodos);
+        SafeTodos(newTodos);
     }
 
     return(

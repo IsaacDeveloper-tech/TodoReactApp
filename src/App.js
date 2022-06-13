@@ -7,23 +7,26 @@ import { TodoSearch } from './TodoSearch/TodoSearch';
 import { TodoList } from './TodoList/TodoList';
 import { TodoButton } from './TodoButton/TodoButton';
 
-const list = [
-  {id: 0, text: "do something", completed: false},
-  {id: 1, text: "speak with someone", completed: true},
-  {id: 2, text: "play the guitar", completed: false},
-  {id: 3, text: "write a book", completed: false},
-]
-
 function App() {
+  //Get todos
+  let todosLocal = localStorage.getItem("TODOS_V1");
+
+  if(!todosLocal){
+    localStorage.setItem("TODOS_V1", JSON.stringify([]));
+    todosLocal = [];
+  }
+  else{
+    todosLocal = JSON.parse(todosLocal);
+  }
 
   //States
-  const [todos, SetTodos] = React.useState(list);
+  const [todos, SetTodos] = React.useState(todosLocal);
   const [searchValue, SetSearchValue] = React.useState("");
 
   //values
   let completedTodos = todos.filter(todo => todo.completed).length;
   let totalTodos = todos.length;
-  
+
   //filter todos
   let searchedTodos = [];
 
