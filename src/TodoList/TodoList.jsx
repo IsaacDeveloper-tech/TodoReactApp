@@ -1,42 +1,23 @@
 import React from "react";
+import { GeneralContext } from "../Context/GeneralContext";
 import { TodoItem } from "../TodoItem/TodoItem";
 
 //styles
 import "./TodoList.css";
 
 
-function TodoList({ todos, SetTodos }){
-
-    //functions
-    const SafeTodos = (todos) => {
-        let tosafe = JSON.stringify(todos);
-        localStorage.setItem("TODOS_V1", tosafe);
-        SetTodos(todos); 
-    }
-
-    const CompleteTodo = (id) => {
-        let todoIndex = todos.findIndex(todo => todo.id === id);
-        let newTodos = [...todos];
-        newTodos[todoIndex].completed = true;
-        SafeTodos(newTodos);
-    }
-
-    const DeleteTodo = (id) => {
-        let todoIndex = todos.findIndex(todo => todo.id === id);
-        let newTodos = [...todos];
-        newTodos.splice(todoIndex, 1);
-        SafeTodos(newTodos);
-    }
+function TodoList(){
+    //context
+    const { searchedTodos } = React.useContext(GeneralContext);
 
     return(
         <ul className="todo-list">
             {
-                todos.map(todo => {
+                searchedTodos.map(todo => {
                     return <TodoItem 
                                 text = {todo.text} 
                                 completed = {todo.completed}
-                                OnComplete = { () => { CompleteTodo(todo.id) } }
-                                OnDelete = { () => { DeleteTodo(todo.id) } }
+                                id = {todo.id}
                                 key = {todo.id}
                             />
                 })
