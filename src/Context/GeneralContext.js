@@ -19,6 +19,7 @@ function GeneralContextProvider(props){
     //States
     const [todos, SetTodos] = React.useState(todosLocal);
     const [searchValue, SetSearchValue] = React.useState("");
+    const [openedModal, SetStateModal] = React.useState(false);
 
     //values
     let completedTodos = todos.filter(todo => todo.completed).length;
@@ -39,10 +40,22 @@ function GeneralContextProvider(props){
         searchedTodos = todos;
     }
 
+    //functions
     const SafeTodos = (todos) => {
         let tosafe = JSON.stringify(todos);
         localStorage.setItem("TODOS_V1", tosafe);
         SetTodos(todos); 
+    }
+
+    const AddTodo = (todos, text) => {
+        let copy = [...todos];
+        copy.push({
+            id: copy.length,
+            text: text,
+            completed: false
+        });
+
+        SafeTodos(copy);
     }
 
     return (
@@ -53,7 +66,10 @@ function GeneralContextProvider(props){
             searchValue,
             SetSearchValue,
             searchedTodos,
-            SafeTodos
+            SafeTodos,
+            openedModal,
+            SetStateModal,
+            AddTodo
         }}>
             {props.children}
         </GeneralContext.Provider>
